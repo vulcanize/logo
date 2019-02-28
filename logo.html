@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>logo part 1</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.5.0/svg.min.js"></script>
+      
+  <script type="text/javascript">
+    window.onload=function(){
+      
+//should probably explore using Isosceles Heronian or Almost-equilateral Heronian triangles
+//https://www.triangle-calculator.com/?what=vc&a=0&a1=0&3dd=3D&a2=0&b=0&b1=133&b2=0&c=-115&c1=66.5&c2=0&submit=Solve&3d=0
+
+var baseH = 115 //distance from line to point
+var sideH = 115.136
+var baseL = 133
+var sideL = 132.843
+
+var size = 5 * baseH
+
+var draw = SVG('drawing').size(size, size)
+var bg = draw.rect(size, size).fill('#0')
+
+var g0 = draw.group()
+
+var pl0 = draw.polyline([[0,0], [baseL,0], [baseL/2,baseH], [0,0]]).fill('none')
+pl0.stroke({
+  color: '#050',
+  width: 4,
+  linecap: 'round',
+  linejoin: 'round'
+})//.opacity(0.7)
+
+g0.add(pl0.clone())
+
+pl0.remove()
+
+g0.each(function(i, children) {
+  for (var n = 1; n < 7; n++) {
+    g0.add(this.clone().rotate(60*n, baseL/2,baseH))
+  }
+})
+
+g0.dmove((size/2) - sideL, (size/2) - (2*sideH))
+
+ 
+var g1 = g0.clone().dy(baseH*2)
+var g2 = g0.clone().dx(sideL*1.5).dy(baseH)
+
+
+draw.circle(baseL*4).stroke({color: '#080', width: 4}).fill('none').center(size/2,size/2)
+
+draw.ungroup()
+
+}
+
+</script>
+</head>
+<body>
+  <div id="drawing"></div>
+  <!--After being generated above:
+    https://petercollingridge.appspot.com/svg-optimiser
+    Then:
+    https://kraken.io/web-interface
+    Result:
+<svg xmlns="http://www.w3.org/2000/svg" width="575" height="575"><style>.a{fill:none;stroke-linejoin:round;stroke-width:4;stroke:#050;}</style>
+    <path fill="#0" d="M0 0h575v575H0z"/>
+    <path d="M154.66 57.23h133l-66.5 115-66.5-115M287.5 57.14L354 172.32l-132.84-.1L287.5 57.15M354 172.14l-66.5 115.18-66.34-115.1 132.84-.08M287.66 287.23h-133l66.5-115 66.5 115M154.8 287.32L88.3 172.14l132.86.1L154.8 287.3M88.3 172.32l66.5-115.18 66.36 115.1-132.85.08M154.66 57.23h133l-66.5 115-66.5-115M353.92 172.23h133l-66.5 115-66.5-115M486.76 172.14l66.5 115.18-132.84-.1 66.34-115.08M553.26 287.14l-66.5 115.18-66.34-115.1 132.84-.08M486.92 402.23h-133l66.5-115 66.5 115M354.08 402.32l-66.5-115.18 132.84.1-66.34 115.08M287.58 287.32l66.5-115.18 66.34 115.1-132.84.08M353.92 172.23h133l-66.5 115-66.5-115M154.66 287.23h133l-66.5 115-66.5-115M287.5 287.14L354 402.32l-132.84-.1 66.34-115.08M354 402.14l-66.5 115.18-66.34-115.1 132.84-.08M287.66 517.23h-133l66.5-115 66.5 115M154.8 517.32L88.3 402.14l132.86.1L154.8 517.3M88.3 402.32l66.5-115.18 66.36 115.1-132.85.08M154.66 287.23h133l-66.5 115-66.5-115" class="a"/>
+    <circle cx="287.5" cy="287.5" r="266" fill="none" stroke="#080" stroke-width="4"/>
+</svg> -->
+</body></html>
